@@ -1,0 +1,22 @@
+services:
+  db:
+    container_name: postgres-minisearch
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: minisearch
+      POSTGRES_PASSWORD: 3239778
+      PGDATA: /data/postgres
+    volumes:
+      - db:/data/postgres
+    ports:
+      - "5333:5432"
+    networks:
+      - db
+    restart: unless-stopped
+
+networks:
+  db:
+    driver: bridge
+
+volumes:
+  db:
