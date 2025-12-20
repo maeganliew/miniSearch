@@ -2,8 +2,14 @@ package com.minisearch.service;
 
 import com.minisearch.model.Video;
 import com.minisearch.repository.VideoRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
+import tools.jackson.core.type.TypeReference;
+import tools.jackson.databind.ObjectMapper;
 
+import java.time.Duration;
 import java.util.List;
 
 import static java.util.stream.Collectors.toList;
@@ -11,12 +17,28 @@ import static java.util.stream.Collectors.toList;
 @Service
 public class SearchService {
     public final VideoRepository videoRepository;
+    private final RedisTemplate<String, String> redisTemplate;
 
-    public SearchService(VideoRepository videoRepository) {
+    @Autowired
+    private ObjectMapper objectMapper;
+
+    public SearchService(VideoRepository videoRepository, RedisTemplate<String, String> redisTemplate) {
         this.videoRepository = videoRepository;
+        this.redisTemplate = redisTemplate;
     }
 
     public List<Video> searchVideo(String keyword, String sortBy) {
+        // Check cache first
+        String cacheKey = "search:" + keyword + (sortBy != null ? ":sort=" + sortBy : "");
+        ValueOperations<String, String> ops = redisTemplate.opsForValue();
+
+        String cachedJson = ops.get(cacheKey);
+        if (cachedJson != null) {
+            System.out.println("Cache hit for key: " + cacheKey);
+            return objectMapper.readValue(cachedJson, new TypeReference<List<Video>>() {});
+        }
+
+        // If not in cache, search from DB
         List<Video> videos = videoRepository.searchBasic(keyword);
         if (videos == null) return List.of();
 
@@ -35,6 +57,12 @@ public class SearchService {
                     .sorted((a, b) -> score(b, keyword) - score(a, keyword))
                     .toList();
         }
+
+        // Save to cache, time to live 10 minutes
+        // ops.set(key, value, ttl)
+        String json = objectMapper.writeValueAsString(videos);
+        ops.set(cacheKey, json, Duration.ofMinutes(10));
+        System.out.println("Cache miss. Stored key: " + cacheKey);
         return videos;
     }
 
