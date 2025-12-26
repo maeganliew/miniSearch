@@ -36,6 +36,9 @@ public class Video {
     @Column(nullable = false)
     private Long likes = 0L;
 
+    @Column // can be null
+    private String thumbnailUrl;
+
     // Constructors
     public Video() {}
 
@@ -74,4 +77,7 @@ public class Video {
 
     public void incrementViews() { this.views++; }
     public void incrementLikes() { this.likes++; }
+
+    public String getThumbnailUrl() { return thumbnailUrl; }
+    public void setThumbnailUrl(String thumbnailUrl) { this.thumbnailUrl = thumbnailUrl; }
 }

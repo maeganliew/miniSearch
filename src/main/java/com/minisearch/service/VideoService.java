@@ -17,9 +17,11 @@ import java.util.List;
 public class VideoService {
 
     private final VideoRepository videoRepository;
+    private final AsyncService asyncService;
 
-    public VideoService(VideoRepository videoRepository) {
+    public VideoService(VideoRepository videoRepository, AsyncService asyncService) {
         this.videoRepository = videoRepository;
+        this.asyncService = asyncService;
     }
 
     public Page<Video> getAllVideos(Pageable pageable) {
@@ -42,7 +44,10 @@ public class VideoService {
         }
         // telling JPA that this is a video that needs to be inserted, not updated. in case client included id in body accidentally
         video.setId(null);
-        return videoRepository.save(video);
+        video.setThumbnailUrl("https://example.com/thumbnails/placeholder.jpg");
+        Video savedVideo = videoRepository.save(video);
+        asyncService.generateThumbnail(savedVideo.getId());
+        return videoRepository.save(savedVideo);
     }
 
     public Video updateVideo(Video video, Long id) {
