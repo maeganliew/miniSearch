@@ -5,12 +5,9 @@ import com.minisearch.model.Video;
 import com.minisearch.repository.VideoRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 //handle business logic
 @Service //makes the class below available as a bean
@@ -69,5 +66,4 @@ public class VideoService {
     public void deleteVideo(Long id) {
         videoRepository.deleteById(id);
     }
-
 }
