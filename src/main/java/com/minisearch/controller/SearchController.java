@@ -1,5 +1,6 @@
 package com.minisearch.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.minisearch.model.Video;
 import com.minisearch.service.SearchService;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,7 +21,7 @@ public class SearchController {
 
     // Search Video
     @GetMapping
-    public List<Video> searchVideo(@RequestParam String query, @RequestParam(required = false) String sortBy) {
+    public List<Video> searchVideo(@RequestParam String query, @RequestParam(required = false) String sortBy) throws JsonProcessingException {
         return searchService.searchVideo(query, sortBy);
     }
 }

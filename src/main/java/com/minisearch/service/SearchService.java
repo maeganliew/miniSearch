@@ -1,13 +1,14 @@
 package com.minisearch.service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.minisearch.model.Video;
 import com.minisearch.repository.VideoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
-import tools.jackson.core.type.TypeReference;
-import tools.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.time.Duration;
 import java.util.List;
@@ -27,7 +28,7 @@ public class SearchService {
         this.redisTemplate = redisTemplate;
     }
 
-    public List<Video> searchVideo(String keyword, String sortBy) {
+    public List<Video> searchVideo(String keyword, String sortBy) throws JsonProcessingException {
         // Check cache first
         String cacheKey = "search:" + keyword + (sortBy != null ? ":sort=" + sortBy : "");
         ValueOperations<String, String> ops = redisTemplate.opsForValue();

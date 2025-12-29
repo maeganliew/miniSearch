@@ -1,0 +1,14 @@
+/Users/maeganliew/Desktop/miniSearch/src/main/java/com/minisearch/repository/VideoRepository.java
+/Users/maeganliew/Desktop/miniSearch/src/main/java/com/minisearch/RedisTest.java
+/Users/maeganliew/Desktop/miniSearch/src/main/java/com/minisearch/service/VideoService.java
+/Users/maeganliew/Desktop/miniSearch/src/main/java/com/minisearch/exception/VideoNotFoundException.java
+/Users/maeganliew/Desktop/miniSearch/src/main/java/com/minisearch/dto/VideoRequest.java
+/Users/maeganliew/Desktop/miniSearch/src/main/java/com/minisearch/config/RedisConfig.java
+/Users/maeganliew/Desktop/miniSearch/src/main/java/com/minisearch/service/AsyncService.java
+/Users/maeganliew/Desktop/miniSearch/src/main/java/com/minisearch/exception/GlobalExceptionHandler.java
+/Users/maeganliew/Desktop/miniSearch/src/main/java/com/minisearch/controller/VideoController.java
+/Users/maeganliew/Desktop/miniSearch/src/main/java/com/minisearch/service/SearchService.java
+/Users/maeganliew/Desktop/miniSearch/src/main/java/com/minisearch/dto/VideoResponse.java
+/Users/maeganliew/Desktop/miniSearch/src/main/java/com/minisearch/model/Video.java
+/Users/maeganliew/Desktop/miniSearch/src/main/java/com/minisearch/MiniSearchApplication.java
+/Users/maeganliew/Desktop/miniSearch/src/main/java/com/minisearch/controller/SearchController.java
