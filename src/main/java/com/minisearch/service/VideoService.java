@@ -3,6 +3,7 @@ package com.minisearch.service;
 import com.minisearch.exception.VideoNotFoundException;
 import com.minisearch.model.Video;
 import com.minisearch.repository.VideoRepository;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -25,6 +26,7 @@ public class VideoService {
         return videoRepository.findAll(pageable);
     }
 
+    @Cacheable(value = "videos", key = "#id")
     public Video getSingleVideo(Long id) {
         return videoRepository.findById(id).orElseThrow(() -> new VideoNotFoundException(id));
     }
