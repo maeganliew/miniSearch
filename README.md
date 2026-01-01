@@ -84,7 +84,7 @@ curl -X POST "https://minisearch-production.up.railway.app/api/v1/mini-search/vi
 }'
 
 # Search videos
-curl "https://minisearch-production.up.railway.app/api/v1/mini-search/search?q=cat&sort=views"
+curl "https://minisearch-production.up.railway.app/api/v1/mini-search/search?query=cat&sortBy=views"
 ```
 
 ## **Notes**
