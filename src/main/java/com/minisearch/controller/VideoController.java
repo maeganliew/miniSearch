@@ -70,8 +70,7 @@ public class VideoController {
     @PutMapping("/{id}")
     public VideoResponse updateVideo(@Valid @RequestBody VideoRequest videoRequest, @PathVariable Long id) {
         Video video = videoRequest.toVideo();
-        Video updated = videoService.updateVideo(video, id);
-        return VideoResponse.from(updated);
+        return videoService.updateVideo(video, id);
     }
 
     // Delete video

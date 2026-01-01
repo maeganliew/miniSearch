@@ -4,6 +4,7 @@ import com.minisearch.dto.VideoResponse;
 import com.minisearch.exception.VideoNotFoundException;
 import com.minisearch.model.Video;
 import com.minisearch.repository.VideoRepository;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -52,7 +53,9 @@ public class VideoService {
         return videoRepository.save(savedVideo);
     }
 
-    public Video updateVideo(Video video, Long id) {
+    // DTO mapping happens here
+    @CachePut(value = "videos", key = "#id")
+    public VideoResponse updateVideo(Video video, Long id) {
         Video existing = videoRepository.findById(id)
                 .orElseThrow(() -> new VideoNotFoundException(id));
 
@@ -65,7 +68,8 @@ public class VideoService {
         if (video.getTags() != null) {
             existing.setTags(video.getTags());
         }
-        return videoRepository.save(existing);
+        Video saved = videoRepository.save(existing);
+        return VideoResponse.from(saved);
     }
 
     public void deleteVideo(Long id) {
