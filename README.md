@@ -1,15 +1,16 @@
-# Mini Search Backend 
+# Mini Search
 
-A simple backend for a TikTok-like video platform, supporting video CRUD operations, search, caching, and optional scoring for keyword relevance.
+A backend application for a TikTok-like video platform, supporting video CRUD operations, search, caching, and optional scoring for keyword relevance.
 
 ---
 
 ## **Tech Stack**
 
-- **Backend:** Spring Boot  
+- **Backend:** Java (Spring Boot)
 - **Database:** PostgreSQL  
 - **Cache:** Redis  
-- **Documentation:** Swagger/OpenAPI  
+- **Documentation:** Swagger
+- **Deployment:** Railway
 
 ---
 
