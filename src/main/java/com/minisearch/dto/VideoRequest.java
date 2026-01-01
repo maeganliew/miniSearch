@@ -40,4 +40,10 @@ public class VideoRequest {
 
     public List<String> getTags() { return tags; }
     public void setTags(List<String> tags) { this.tags = tags; }
+
+    public Long getUploaderId() { return uploaderId; }
+    public void setUploaderId(Long uploaderId) { this.uploaderId = uploaderId; }
+
+    public LocalDateTime getUploadDate() { return uploadDate; }
+    public void setUploadDate(LocalDateTime uploadDate) { this.uploadDate = uploadDate; }
 }
