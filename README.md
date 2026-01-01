@@ -73,7 +73,7 @@ https://minisearch-production.up.railway.app/swagger-ui/index.html
 Using **Postman/Curl**:
 ```
 # Add a video
-curl -X POST "http://localhost:8080/videos" \
+curl -X POST "https://minisearch-production.up.railway.app/api/v1/mini-search/video" \
 -H "Content-Type: application/json" \
 -d '{
   "title": "Funny Cat Video",
@@ -84,16 +84,17 @@ curl -X POST "http://localhost:8080/videos" \
 }'
 
 # Search videos
-curl "http://localhost:8080/search?q=cat&sort=views"
+curl "https://minisearch-production.up.railway.app/api/v1/mini-search/search?q=cat&sort=views"
 ```
 
 ## **Notes**
 - Caching via Redis is active for repeated search queries
-- Async thumbnail placeholder generation is implemented when a video is added.  
-- Simple keyword-based scoring is applied during search to rank results.
+- Async thumbnail generation (placeholder URL) is implemented when a video is added.  
+- Simple keyword-based relevance scoring is applied during search to rank results.
 
 ## **Future Improvements**
 - Dockerize app and database for easier deployment
 - Improve search scoring with Natural Language Processing / embeddings
 - Add file upload and actual thumbnail generation
+- Add unit/integration tests
 
