@@ -2,6 +2,9 @@ package com.minisearch.dto;
 
 import com.minisearch.model.Video;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
+import java.time.LocalDateTime;
 import java.util.List;
 
 // what clients are required to send when making requests
@@ -14,12 +17,18 @@ public class VideoRequest {
 
     private List<String> tags;
 
+    private Long uploaderId;
+
+    private LocalDateTime uploadDate; // optional, can default to now in service
+
     // Convert DTO to Video entity
     public Video toVideo() {
         Video video = new Video();
         video.setTitle(this.title);
         video.setDescription(this.description);
         video.setTags(this.tags);
+        video.setUploaderId(this.uploaderId);
+        video.setUploadDate(this.uploadDate != null ? this.uploadDate : LocalDateTime.now());
         return video;
     }
 

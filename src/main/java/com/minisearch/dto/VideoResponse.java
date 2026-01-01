@@ -23,7 +23,10 @@ public class VideoResponse implements Serializable {
         dto.setId(video.getId());
         dto.setTitle(video.getTitle());
         dto.setDescription(video.getDescription());
+
+        // to avoid deserialize errors
         dto.setTags(video.getTags() != null ? new ArrayList<>(video.getTags()) : null);
+
         dto.setUploaderId(video.getUploaderId());
         dto.setThumbnailUrl(video.getThumbnailUrl());
         dto.setViews(video.getViews());
