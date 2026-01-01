@@ -2,8 +2,6 @@ package com.minisearch.dto;
 
 import com.minisearch.model.Video;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import java.time.LocalDateTime;
 import java.util.List;
 
 // what clients are required to send when making requests

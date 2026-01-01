@@ -2,9 +2,10 @@ package com.minisearch.dto;
 
 import com.minisearch.model.Video;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class VideoResponse {
+public class VideoResponse implements Serializable {
 
     private Long id;
     private String title;
