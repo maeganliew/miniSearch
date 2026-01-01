@@ -45,8 +45,12 @@ mini-search/
 - Maven installed
 
 ### **2. Configure application.properties**
-
-```properties
+Create the file:
+```
+src/main/resources/application.properties
+```
+Paste the following configuration and update the values as needed:
+```
 # Database configuration
 # Database name: minisearch
 spring.datasource.url=jdbc:postgresql://localhost:5432/minisearch
