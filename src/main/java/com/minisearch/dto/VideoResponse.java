@@ -3,6 +3,7 @@ package com.minisearch.dto;
 import com.minisearch.model.Video;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class VideoResponse implements Serializable {
@@ -22,7 +23,7 @@ public class VideoResponse implements Serializable {
         dto.setId(video.getId());
         dto.setTitle(video.getTitle());
         dto.setDescription(video.getDescription());
-        dto.setTags(video.getTags());
+        dto.setTags(video.getTags() != null ? new ArrayList<>(video.getTags()) : null);
         dto.setUploaderId(video.getUploaderId());
         dto.setThumbnailUrl(video.getThumbnailUrl());
         dto.setViews(video.getViews());
