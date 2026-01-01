@@ -16,19 +16,12 @@ public class VideoRequest {
 
     private List<String> tags;
 
-    @NotNull(message = "UploaderId is required")
-    private Long uploaderId;
-
-    private LocalDateTime uploadDate; // optional, can default to now in service
-
     // Convert DTO to Video entity
     public Video toVideo() {
         Video video = new Video();
         video.setTitle(this.title);
         video.setDescription(this.description);
         video.setTags(this.tags);
-        video.setUploaderId(this.uploaderId);
-        video.setUploadDate(this.uploadDate != null ? this.uploadDate : LocalDateTime.now());
         return video;
     }
 
@@ -40,10 +33,4 @@ public class VideoRequest {
 
     public List<String> getTags() { return tags; }
     public void setTags(List<String> tags) { this.tags = tags; }
-
-    public Long getUploaderId() { return uploaderId; }
-    public void setUploaderId(Long uploaderId) { this.uploaderId = uploaderId; }
-
-    public LocalDateTime getUploadDate() { return uploadDate; }
-    public void setUploadDate(LocalDateTime uploadDate) { this.uploadDate = uploadDate; }
 }

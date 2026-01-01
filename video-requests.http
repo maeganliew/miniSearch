@@ -4,7 +4,7 @@ GET http://localhost:8080/api/v1/mini-search/video
 ### Get Single Video
 GET http://localhost:8080/api/v1/mini-search/video/7
 
-### Pagination
+### Pagination, Get All Videos
 GET http://localhost:8080/api/v1/mini-search/video?page=0&size=2
 
 ### Add new Video

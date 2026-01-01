@@ -44,8 +44,7 @@ public class VideoController {
     })
     @GetMapping("/{id}")
     public VideoResponse getSingleVideo(@PathVariable Long id) {
-        Video video = videoService.getSingleVideo(id);
-        return VideoResponse.from(video);
+        return videoService.getSingleVideo(id);
     }
 
     // Add new video
@@ -72,7 +71,7 @@ public class VideoController {
     public VideoResponse updateVideo(@Valid @RequestBody VideoRequest videoRequest, @PathVariable Long id) {
         Video video = videoRequest.toVideo();
         Video updated = videoService.updateVideo(video, id);
-        return VideoResponse.from(video);
+        return VideoResponse.from(updated);
     }
 
     // Delete video

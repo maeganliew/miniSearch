@@ -1,5 +1,6 @@
 package com.minisearch.service;
 
+import com.minisearch.dto.VideoResponse;
 import com.minisearch.exception.VideoNotFoundException;
 import com.minisearch.model.Video;
 import com.minisearch.repository.VideoRepository;
@@ -26,9 +27,11 @@ public class VideoService {
         return videoRepository.findAll(pageable);
     }
 
+    // DTO mapping happens here
     @Cacheable(value = "videos", key = "#id")
-    public Video getSingleVideo(Long id) {
-        return videoRepository.findById(id).orElseThrow(() -> new VideoNotFoundException(id));
+    public VideoResponse getSingleVideo(Long id) {
+        Video video = videoRepository.findById(id).orElseThrow(() -> new VideoNotFoundException(id));
+        return VideoResponse.from(video);
     }
 
     public Video addVideo(Video video) {
