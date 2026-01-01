@@ -15,7 +15,7 @@ A backend application for a TikTok-like video platform, supporting video CRUD op
 ---
 
 ## **Project Structure**
-
+```
 mini-search/
 ├── src/
 │   └── main/
@@ -32,7 +32,7 @@ mini-search/
 │           └── application.properties
 ├── pom.xml
 └── README.md
-
+```
 ---
 
 ## **Getting Started**
