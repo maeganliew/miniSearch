@@ -16,16 +16,19 @@ A simple backend for a TikTok-like video platform, supporting video CRUD operati
 ## **Project Structure**
 
 mini-search/
-├── src/main/java/com/minisearch/
-│ ├── config/ # Redis and Cache configs
-│ ├── controller/ # REST controllers (VideoController, SearchController)
-│ ├── service/ # Business logic (VideoService, SearchService, Async Service)
-│ ├── repository/ # DB access (VideoRepository)
-│ ├── model/ # Video entity
-│ ├── dto/ # Request/Response DTOs
-│ └── exception/ # Custom exceptions and handlers
-├── src/main/resources/
-│ └── application.properties
+├── src/
+│   └── main/
+│       ├── java/
+│       │   └── com/minisearch/
+│       │       ├── config/        # Redis and cache configs
+│       │       ├── controller/    # REST controllers (VideoController, SearchController)
+│       │       ├── service/       # Business logic (VideoService, SearchService, AsyncService)
+│       │       ├── repository/    # DB access (VideoRepository)
+│       │       ├── model/         # Video entity
+│       │       ├── dto/           # Request/Response DTOs
+│       │       └── exception/     # Custom exceptions and handlers
+│       └── resources/
+│           └── application.properties
 ├── pom.xml
 └── README.md
 
@@ -43,9 +46,13 @@ mini-search/
 ### **2. Configure application.properties**
 
 ```properties
+# Database configuration
+# Database name: minisearch
 spring.datasource.url=jdbc:postgresql://localhost:5432/minisearch
 spring.datasource.username=your_db_user
 spring.datasource.password=your_db_password
+
+# Redis configuration
 spring.redis.host=localhost
 spring.redis.port=6379
 ```
@@ -58,11 +65,11 @@ mvn spring-boot:run
 ## **Swagger Documentation**
 Swagger UI is available at:
 ```
-http://localhost:8080/swagger-ui/index.html
+https://minisearch-production.up.railway.app/swagger-ui/index.html
 ```
 
 ## **Example Usage (No Frontend)** 
-Using Postman/Curl:
+Using **Postman/Curl**:
 ```
 # Add a video
 curl -X POST "http://localhost:8080/videos" \
@@ -81,7 +88,7 @@ curl "http://localhost:8080/search?q=cat&sort=views"
 
 ## **Notes**
 - Caching via Redis is active for repeated search queries
-- - Async thumbnail placeholder generation is implemented when a video is added.  
+- Async thumbnail placeholder generation is implemented when a video is added.  
 - Simple keyword-based scoring is applied during search to rank results.
 
 ## **Future Improvements**
