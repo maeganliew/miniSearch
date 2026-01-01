@@ -20,6 +20,7 @@ public class VideoRequest {
 
     private Long uploaderId;
 
+    // will throw InvalidFormatException if the date passed in doesnt follow this format
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime uploadDate; // optional, can default to now in service
 
