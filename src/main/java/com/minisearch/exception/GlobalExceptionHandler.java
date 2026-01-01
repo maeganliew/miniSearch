@@ -1,6 +1,7 @@
 package com.minisearch.exception;
 
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.ObjectError;
@@ -23,11 +24,21 @@ public class GlobalExceptionHandler {
         return ResponseEntity.badRequest().body(errors);
     }
 
-    // Handle malformed JSON
-    @ExceptionHandler({JsonParseException.class})
-    public ResponseEntity<String> handleJsonParse(JsonParseException ex) {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                .body("Invalid JSON format: " + ex.getMessage());
+    // Handle malformed JSON / Invalid formats e.g. invalid date format
+    @ExceptionHandler({JsonParseException.class, InvalidFormatException.class})
+    public ResponseEntity<String> handleJsonExceptions(Exception ex) {
+        String message;
+
+        if (ex instanceof JsonParseException) {
+            message = "Malformed JSON: " + ex.getMessage();
+        } else if (ex instanceof InvalidFormatException invalidEx) {
+            String field = invalidEx.getPath().getFirst().getFieldName();
+            Object value = invalidEx.getValue();
+            message = "Invalid value for field '" + field + "': " + value;
+        } else {
+            message = "JSON error: " + ex.getMessage();
+        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(message);
     }
 
     // For other exceptions
