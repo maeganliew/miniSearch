@@ -1,9 +1,11 @@
 package com.minisearch.exception;
 
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -24,19 +26,25 @@ public class GlobalExceptionHandler {
         return ResponseEntity.badRequest().body(errors);
     }
 
-    // Handle malformed JSON / Invalid formats e.g. invalid date format
-    @ExceptionHandler({JsonParseException.class, InvalidFormatException.class})
-    public ResponseEntity<String> handleJsonExceptions(Exception ex) {
-        String message;
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    public ResponseEntity<String> handleHttpMessageNotReadable(HttpMessageNotReadableException ex) {
+        String message = "Invalid request body";
 
-        if (ex instanceof JsonParseException) {
-            message = "Malformed JSON: " + ex.getMessage();
-        } else if (ex instanceof InvalidFormatException invalidEx) {
-            String field = invalidEx.getPath().getFirst().getFieldName();
+        Throwable cause = ex.getMostSpecificCause();
+
+        if (cause instanceof JsonParseException) {
+            message = "Malformed JSON: " + cause.getMessage();
+        } else if (cause instanceof InvalidFormatException invalidEx) {
+            // Identify the field and the invalid value
+            String field = invalidEx.getPath().stream()
+                    .map(JsonMappingException.Reference::getFieldName)
+                    .reduce((first, second) -> second) // get the deepest field
+                    .orElse("unknown");
             Object value = invalidEx.getValue();
-            message = "Invalid value for field '" + field + "': " + value;
-        } else {
-            message = "JSON error: " + ex.getMessage();
+            String targetType = invalidEx.getTargetType().getSimpleName();
+            message = "Invalid value for field '" + field + "': '" + value + "'. Expected type: " + targetType;
+        } else if (cause != null) {
+            message = cause.getMessage();
         }
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(message);
     }
