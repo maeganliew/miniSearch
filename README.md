@@ -73,7 +73,7 @@ Swagger UI is available at:
 https://minisearch-production.up.railway.app/swagger-ui/index.html
 ```
 
-## **Example Usage (No Frontend)** 
+## **Example Usage (Backend Only)** 
 Using **Postman/Curl**:
 ```
 # Add a video
