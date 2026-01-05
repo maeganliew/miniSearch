@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Random;
 
 @Configuration
-public class DataSeeder {
+public class SeedConfig {
 
     @Bean
     CommandLineRunner seedVideos(VideoRepository videoRepository) {

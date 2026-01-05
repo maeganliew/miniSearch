@@ -8,7 +8,7 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 // VideoRepository knows which table to query because it is typed with the Video entity
-// the Video entity is mapped to the videos table via @Entity + @Table.
+// the Video entity is mapped to the videos table via @Entity + @Table in model file.
 public interface VideoRepository extends JpaRepository<Video, Long> {
     @Query("""
         SELECT DISTINCT v
