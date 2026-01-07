@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.minisearch.model.Video;
 import com.minisearch.repository.VideoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
@@ -40,8 +41,15 @@ public class SearchService {
         }
 
         // If not in cache, search from DB
-        List<Video> videos = videoRepository.searchBasic(keyword);
-        if (videos == null) return List.of();
+        List<Video> videos;
+        try {
+            // Use indexed full-text search
+            videos = videoRepository.searchIndexed(keyword);
+
+        } catch (Exception e) {
+            // Fallback to LIKE search if index not ready
+            videos = videoRepository.searchBasic(keyword);
+        }
 
         // If sort param is provided, sort it via sort param
         if (sortBy != null) {
